@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6fb13c0d7ac742e3ab1dc8367f7bfc6f" Name="Diagram1">
+        <EntityTypeShape EntityType="FunBModel.product" Width="1.5" PointX="0.625" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunBModel.Order" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="FunBModel.OrderDetail" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="FunBModel.tbl_Categories" Width="1.5" PointX="1.5" PointY="4.75" />
+        <EntityTypeShape EntityType="FunBModel.User" Width="1.5" PointX="1.5" PointY="12" />
+        <AssociationConnector Association="FunBModel.FK_Order_Order" />
+        <AssociationConnector Association="FunBModel.FK_OrderDetails_OrderDetails" />
+        <AssociationConnector Association="FunBModel.FK_OrderDetails_product" />
+        <AssociationConnector Association="FunBModel.FK__product__Categor__3A81B327" />
+        <EntityTypeShape EntityType="FunBModel.tblShoppingcart" Width="1.5" PointX="3.75" PointY="6.125" />
+        <AssociationConnector Association="FunBModel.FK_tblShoppingcart_product" />
+        <AssociationConnector Association="FunBModel.FK_tblShoppingcart_User" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

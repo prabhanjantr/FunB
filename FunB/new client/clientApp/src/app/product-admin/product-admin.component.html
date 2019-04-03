@@ -1,0 +1,16 @@
+<div *ngFor="let prd of prd_list" class="col-lg-4 col-md-3 col-sm-6 col-xs-12" [id]="prd.prd_id">
+  <div class="product-thumb transition">
+    <div class="image">
+      <a href="">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Y4zGja0Nmoz7VNMxam3AEesJ_TzKK_JYBEJssuRmeG9qJIFm" alt="Image result for product default image" title="image" class="img-responsive">
+      </a>
+    </div>
+    <div class="caption" style="text-align: left">
+      <h4>{{prd.ProductName}}</h4>
+      <p>{{prd.ProductDescription}}</p>
+      <p class="price">{{prd.price | currency:"INR"}}</p>
+    </div>
+      <button type="button" (click)="addToCart(prd.Id)" style="float: left;"><i class="fa fa-shopping-cart" style="font-size:20px;"></i> <span
+        class="hidden-xs hidden-sm hidden-md">Add to Cart</span></button>
+  </div>
+</div>

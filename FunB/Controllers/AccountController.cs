@@ -16,9 +16,15 @@ using Microsoft.Owin.Security.OAuth;
 using FunB.Models;
 using FunB.Providers;
 using FunB.Results;
+using System.Net;
+using System.Web.Http.Cors;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FunB.Controllers
 {
+    [EnableCors("*","*","*")]
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -218,6 +224,60 @@ namespace FunB.Controllers
             }
 
             return Ok();
+        }
+
+        // GET api/Account/Login
+        [OverrideAuthentication]
+        [HostAuthentication(DefaultAuthenticationTypes.ExternalCookie)]
+        [AllowAnonymous]
+        [Route("Login")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Login(RegisterBindingModel model)
+        {
+            ApplicationUser user = await UserManager.FindAsync(model.Email, model.Password);
+            bool hasRegistered = user != null;
+            if (hasRegistered)
+            {
+                Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
+                ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                    CookieAuthenticationDefaults.AuthenticationType);
+
+                AuthenticationProperties properties = ApplicationOAuthProvider.CreateProperties(user.UserName);
+                Authentication.SignIn(properties, oAuthIdentity, cookieIdentity);
+
+
+
+                var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("akjdshflkjhdsakjnvckjladshflkjhalkjsdhf"));
+
+                var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+                var tokenDescriptor = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(cookieIdentity),
+                    Expires = DateTime.Now.AddDays(1),
+                    SigningCredentials = creds
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var token = tokenHandler.CreateToken(tokenDescriptor);
+
+
+
+
+
+
+                return Content(HttpStatusCode.OK, token);
+
+            }
+            else
+            {
+                return Content(HttpStatusCode.BadRequest, "Incorrect user name or password");
+            }
+
         }
 
         // GET api/Account/ExternalLogin

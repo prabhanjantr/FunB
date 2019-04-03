@@ -1,0 +1,20 @@
+<div id="top-links" class="nav pull-right" data-target="#cart-details-shower" data-toggle="modal"> 
+    <a href="#" title="Shopping Cart" (click)="productDetails()"><i class="fa fa-shopping-cart" style="font-size:20px">{{cart_list}}</i> <span
+        class="hidden-xs hidden-sm hidden-md"></span></a>
+</div>
+<div class="modal fade" id="cart-details-shower"  role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cart Items</h4>
+            </div>
+            <div class="modal-body">
+                <p>Products List</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

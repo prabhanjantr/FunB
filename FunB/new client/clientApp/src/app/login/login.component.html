@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row centered-form">
+    <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Login</h3>
+          <div>
+            <div class="panel-body">
+              <form role="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <div class="form-group">
+                  <input type="text" formControlName="email" class="form-control input-sm"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="Email Address*" />
+                  <div *ngIf="(f.email.dirty ||f.email.touched || submitted) && f.email.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <input type="password" formControlName="password" class="form-control input-sm" [ngClass]="{ 'is-
+                                        invalid': submitted && f.password.errors }" placeholder="Password*" />
+                  <div *ngIf="(f.password.dirty ||f.password.touched || submitted) && f.password.errors"
+                    class="invalid-feedback">
+                    <div *ngIf="f.password.errors.required">Password is required</div>
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                  </div>
+                </div>
+
+                <p class="text-danger">{{msg}}</p>
+                <input type="submit" value="Login" class="btn btn-info btn-block">
+                <input type="button" value="Register" routerLink = '/register' class="btn btn-info btn-block">
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
